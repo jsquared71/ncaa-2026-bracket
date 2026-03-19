@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 NCAA Men's Basketball Tournament Bracket</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;overflow-x:auto;min-height:100vh}
+h1{text-align:center;padding:18px 10px 4px;font-size:1.5rem;color:#fff;letter-spacing:.5px}
+.subtitle{text-align:center;color:#8899aa;font-size:.85rem;margin-bottom:12px}
+.legend{display:flex;justify-content:center;gap:18px;margin-bottom:10px;flex-wrap:wrap}
+.legend span{font-size:.75rem;display:flex;align-items:center;gap:4px}
+.legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dot.completed{background:#4caf50}.dot.live{background:#ff9800}.dot.upcoming{background:#555}
+
+.bracket-container{display:flex;gap:0;padding:10px 20px 30px;min-width:1400px;justify-content:center}
+.region{flex:1;min-width:0}
+.region-title{text-align:center;font-weight:700;font-size:1rem;padding:6px;margin-bottom:6px;border-radius:6px;color:#fff}
+.region-title.east{background:#1565c0}.region-title.west{background:#2e7d32}
+.region-title.south{background:#c62828}.region-title.midwest{background:#f9a825;color:#222}
+
+.round-label{text-align:center;font-size:.65rem;color:#6688aa;text-transform:uppercase;letter-spacing:1px;padding:4px 0}
+.round{display:flex;flex-direction:column;justify-content:space-around;min-width:180px;padding:0 2px}
+.rounds{display:flex}
+
+.matchup{background:#152238;border:1px solid #1e3a5f;border-radius:6px;margin:3px 1px;padding:0;overflow:hidden;font-size:.72rem;transition:border-color .2s}
+.matchup:hover{border-color:#4488cc}
+.team{display:flex;align-items:center;padding:3px 6px;gap:4px;border-bottom:1px solid #1e3a5f}
+.team:last-child{border-bottom:none}
+.seed{color:#6688aa;font-weight:700;min-width:18px;text-align:right;font-size:.65rem}
+.name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.score{font-weight:700;min-width:22px;text-align:right;color:#aaa}
+.team.winner{background:#1a3a2a}
+.team.winner .name{color:#4caf50;font-weight:700}
+.team.winner .score{color:#4caf50}
+.team.loser .name{color:#666}.team.loser .score{color:#666}
+.game-info{text-align:center;font-size:.6rem;color:#556;padding:1px 4px;background:#0d1a2a}
+
+.final-four{min-width:600px;margin:0 10px}
+.ff-section{margin-bottom:10px}
+.ff-title{text-align:center;font-size:1rem;font-weight:700;color:#ffd700;padding:8px;border-bottom:2px solid #ffd700;margin-bottom:8px}
+.champion-box{text-align:center;padding:16px;background:linear-gradient(135deg,#1a1a3e,#2a1a4e);border:2px solid #ffd700;border-radius:10px;margin-top:10px}
+.champion-box .label{color:#ffd700;font-size:.8rem;text-transform:uppercase;letter-spacing:2px}
+.champion-box .team-name{font-size:1.3rem;font-weight:700;color:#fff;margin-top:4px}
+
+.tab-bar{display:flex;justify-content:center;gap:6px;padding:8px;flex-wrap:wrap}
+.tab-bar button{background:#152238;color:#8899aa;border:1px solid #1e3a5f;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.75rem;transition:all .2s}
+.tab-bar button.active,.tab-bar button:hover{background:#1565c0;color:#fff;border-color:#1565c0}
+
+.view{display:none}.view.active{display:block}
+.scores-updated{text-align:center;color:#556;font-size:.7rem;padding:6px}
+
+@media(max-width:900px){
+  .bracket-container{flex-direction:column;min-width:unset}
+  .round{min-width:150px}
+}
+</style>
+</head>
+<body>
+
+<h1>🏀 2026 NCAA Men's Basketball Tournament</h1>
+<p class="subtitle">March 17 – April 6 · Lucas Oil Stadium, Indianapolis · Updated March 19, 2026</p>
+
+<div class="legend">
+  <span><span class="dot completed"></span> Final</span>
+  <span><span class="dot live"></span> In Progress</span>
+  <span><span class="dot upcoming"></span> Upcoming</span>
+</div>
+
+<div class="tab-bar">
+  <button class="active" onclick="showView('east')">East</button>
+  <button onclick="showView('south')">South</button>
+  <button onclick="showView('west')">West</button>
+  <button onclick="showView('midwest')">Midwest</button>
+  <button onclick="showView('finalfour')">Final Four</button>
+</div>
+
+<!-- EAST REGION -->
+<div class="view active" id="view-east">
+<div class="bracket-container">
+<div class="region">
+  <div class="region-title east">East Region — Washington, D.C.</div>
+  <div class="rounds">
+    <div class="round">
+      <div class="round-label">First Round · Mar 19–20</div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">1</span><span class="name">Duke</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">16</span><span class="name">Siena</span><span class="score">—</span></div>
+        <div class="game-info">Thu 2:50p · CBS · Greenville</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team loser"><span class="seed">8</span><span class="name">Ohio State</span><span class="score">62</span></div>
+        <div class="team winner"><span class="seed">9</span><span class="name">TCU</span><span class="score">66</span></div>
+        <div class="game-info">✅ Final · Greenville</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">5</span><span class="name">St. John's</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">12</span><span class="name">Northern Iowa</span><span class="score">—</span></div>
+        <div class="game-info">Fri 7:10p · CBS · San Diego</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">4</span><span class="name">Kansas</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">13</span><span class="name">Cal Baptist</span><span class="score">—</span></div>
+        <div class="game-info">Fri 9:45p · CBS · San Diego</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">6</span><span class="name">Louisville</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">11</span><span class="name">South Florida</span><span class="score">—</span></div>
+        <div class="game-info">Thu 1:30p · TNT · Buffalo</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">3</span><span class="name">Michigan State</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">14</span><span class="name">North Dakota St</span><span class="score">—</span></div>
+        <div class="game-info">Thu 4:05p · TNT · Buffalo</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">7</span><span class="name">UCLA</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">10</span><span class="name">UCF</span><span class="score">—</span></div>
+        <div class="game-info">Fri 7:25p · TBS · Philadelphia</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">2</span><span class="name">UConn</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">15</span><span class="name">Furman</span><span class="score">—</span></div>
+        <div class="game-info">Fri 10:00p · TBS · Philadelphia</div>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Round of 32 · Mar 21–22</div>
+      <div class="matchup"><div class="team"><span class="name">Duke/Siena winner</span></div><div class="team"><span class="name">TCU</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">St. John's/N. Iowa</span></div><div class="team"><span class="name">Kansas/Cal Baptist</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">Louisville/USF</span></div><div class="team"><span class="name">Mich St/NDSU</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">UCLA/UCF</span></div><div class="team"><span class="name">UConn/Furman</span></div></div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Sweet 16 · Mar 27</div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Elite 8 · Mar 29</div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- SOUTH REGION -->
+<div class="view" id="view-south">
+<div class="bracket-container">
+<div class="region">
+  <div class="region-title south">South Region — Houston, TX</div>
+  <div class="rounds">
+    <div class="round">
+      <div class="round-label">First Round · Mar 19–20</div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">1</span><span class="name">Florida</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">16</span><span class="name">Prairie View A&M</span><span class="score">—</span></div>
+        <div class="game-info">Fri 9:25p · TNT · Tampa</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">8</span><span class="name">Clemson</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">9</span><span class="name">Iowa</span><span class="score">—</span></div>
+        <div class="game-info">Fri 6:50p · TNT · Tampa</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">5</span><span class="name">Vanderbilt</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">12</span><span class="name">McNeese</span><span class="score">—</span></div>
+        <div class="game-info">Thu 3:15p · truTV · OKC</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team winner"><span class="seed">4</span><span class="name">Nebraska</span><span class="score">76</span></div>
+        <div class="team loser"><span class="seed">13</span><span class="name">Troy</span><span class="score">47</span></div>
+        <div class="game-info">✅ Final · OKC</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">6</span><span class="name">North Carolina</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">11</span><span class="name">VCU</span><span class="score">—</span></div>
+        <div class="game-info">Thu 6:50p · TNT · Greenville</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">3</span><span class="name">Illinois</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">14</span><span class="name">Penn</span><span class="score">—</span></div>
+        <div class="game-info">Thu 9:25p · TNT · Greenville</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">7</span><span class="name">Saint Mary's</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">10</span><span class="name">Texas A&M</span><span class="score">—</span></div>
+        <div class="game-info">Thu 7:35p · truTV · OKC</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">2</span><span class="name">Houston</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">15</span><span class="name">Idaho</span><span class="score">—</span></div>
+        <div class="game-info">Thu 10:10p · truTV · OKC</div>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Round of 32 · Mar 21–22</div>
+      <div class="matchup"><div class="team"><span class="name">Florida/PVAMU</span></div><div class="team"><span class="name">Clemson/Iowa</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">Vanderbilt/McNeese</span></div><div class="team"><span class="name">Nebraska</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">UNC/VCU</span></div><div class="team"><span class="name">Illinois/Penn</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">St Mary's/TAMU</span></div><div class="team"><span class="name">Houston/Idaho</span></div></div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Sweet 16 · Mar 26</div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Elite 8 · Mar 28</div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- WEST REGION -->
+<div class="view" id="view-west">
+<div class="bracket-container">
+<div class="region">
+  <div class="region-title west">West Region — San Jose, CA</div>
+  <div class="rounds">
+    <div class="round">
+      <div class="round-label">First Round · Mar 19–20</div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">1</span><span class="name">Arizona</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">16</span><span class="name">LIU</span><span class="score">—</span></div>
+        <div class="game-info">Fri 1:35p · TNT · San Diego</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">8</span><span class="name">Villanova</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">9</span><span class="name">Utah State</span><span class="score">—</span></div>
+        <div class="game-info">Fri 4:10p · TNT · San Diego</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">5</span><span class="name">Wisconsin</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">12</span><span class="name">High Point</span><span class="score">—</span></div>
+        <div class="game-info">Thu 1:50p · TBS · Portland</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">4</span><span class="name">Arkansas</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">13</span><span class="name">Hawai'i</span><span class="score">—</span></div>
+        <div class="game-info">Thu 4:25p · TBS · Portland</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">6</span><span class="name">BYU</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">11</span><span class="name">Texas</span><span class="score">—</span></div>
+        <div class="game-info">Thu 7:25p · TBS · Portland</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">3</span><span class="name">Gonzaga</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">14</span><span class="name">Kennesaw State</span><span class="score">—</span></div>
+        <div class="game-info">Thu 10:00p · TBS · Portland</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">7</span><span class="name">Miami (FL)</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">10</span><span class="name">Missouri</span><span class="score">—</span></div>
+        <div class="game-info">Fri 10:10p · truTV · St. Louis</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">2</span><span class="name">Purdue</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">15</span><span class="name">Queens</span><span class="score">—</span></div>
+        <div class="game-info">Fri 7:35p · truTV · St. Louis</div>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Round of 32 · Mar 21–22</div>
+      <div class="matchup"><div class="team"><span class="name">Arizona/LIU</span></div><div class="team"><span class="name">Villanova/Utah St</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">Wisconsin/High Pt</span></div><div class="team"><span class="name">Arkansas/Hawai'i</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">BYU/Texas</span></div><div class="team"><span class="name">Gonzaga/Kennesaw</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">Miami/Missouri</span></div><div class="team"><span class="name">Purdue/Queens</span></div></div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Sweet 16 · Mar 26</div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Elite 8 · Mar 28</div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- MIDWEST REGION -->
+<div class="view" id="view-midwest">
+<div class="bracket-container">
+<div class="region">
+  <div class="region-title midwest">Midwest Region — Chicago, IL</div>
+  <div class="rounds">
+    <div class="round">
+      <div class="round-label">First Round · Mar 19–20</div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">1</span><span class="name">Michigan</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">16</span><span class="name">Howard</span><span class="score">—</span></div>
+        <div class="game-info">Thu 7:10p · CBS · Buffalo</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">8</span><span class="name">Georgia</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">9</span><span class="name">Saint Louis</span><span class="score">—</span></div>
+        <div class="game-info">Thu 9:45p · CBS · Buffalo</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">5</span><span class="name">Texas Tech</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">12</span><span class="name">Akron</span><span class="score">—</span></div>
+        <div class="game-info">Fri 12:40p · truTV · Tampa</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">4</span><span class="name">Alabama</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">13</span><span class="name">Hofstra</span><span class="score">—</span></div>
+        <div class="game-info">Fri 3:15p · truTV · Tampa</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">6</span><span class="name">Tennessee</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">11</span><span class="name">Miami (OH)</span><span class="score">—</span></div>
+        <div class="game-info">Fri 4:25p · TBS · Philadelphia</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">3</span><span class="name">Virginia</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">14</span><span class="name">Wright State</span><span class="score">—</span></div>
+        <div class="game-info">Fri 1:50p · TBS · Philadelphia</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">7</span><span class="name">Kentucky</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">10</span><span class="name">Santa Clara</span><span class="score">—</span></div>
+        <div class="game-info">Fri 12:15p · CBS · St. Louis</div>
+      </div>
+
+      <div class="matchup">
+        <div class="team"><span class="seed">2</span><span class="name">Iowa State</span><span class="score">—</span></div>
+        <div class="team"><span class="seed">15</span><span class="name">Tennessee State</span><span class="score">—</span></div>
+        <div class="game-info">Fri 2:50p · CBS · St. Louis</div>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Round of 32 · Mar 21–22</div>
+      <div class="matchup"><div class="team"><span class="name">Michigan/Howard</span></div><div class="team"><span class="name">Georgia/St Louis</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">Tex Tech/Akron</span></div><div class="team"><span class="name">Alabama/Hofstra</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">Tennessee/Miami OH</span></div><div class="team"><span class="name">Virginia/Wright St</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">Kentucky/Santa Clara</span></div><div class="team"><span class="name">Iowa St/Tenn St</span></div></div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Sweet 16 · Mar 27</div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+    </div>
+
+    <div class="round">
+      <div class="round-label">Elite 8 · Mar 29</div>
+      <div class="matchup"><div class="team"><span class="name">TBD</span></div><div class="team"><span class="name">TBD</span></div></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- FINAL FOUR -->
+<div class="view" id="view-finalfour">
+<div style="max-width:600px;margin:0 auto;padding:10px">
+  <div class="ff-title">🏆 Final Four — Lucas Oil Stadium, Indianapolis</div>
+
+  <div class="ff-section">
+    <div class="round-label">National Semifinals · Saturday, April 4 · TBS</div>
+    <div class="matchup">
+      <div class="team"><span class="name">East Champion — TBD</span></div>
+      <div class="team"><span class="name">South Champion — TBD</span></div>
+      <div class="game-info">6:00 PM ET</div>
+    </div>
+    <div class="matchup">
+      <div class="team"><span class="name">West Champion — TBD</span></div>
+      <div class="team"><span class="name">Midwest Champion — TBD</span></div>
+      <div class="game-info">8:30 PM ET</div>
+    </div>
+  </div>
+
+  <div class="ff-section">
+    <div class="round-label">National Championship · Monday, April 6 · TBS</div>
+    <div class="matchup">
+      <div class="team"><span class="name">Semifinal 1 Winner — TBD</span></div>
+      <div class="team"><span class="name">Semifinal 2 Winner — TBD</span></div>
+      <div class="game-info">8:30 PM ET</div>
+    </div>
+  </div>
+
+  <div class="champion-box">
+    <div class="label">🏆 National Champion</div>
+    <div class="team-name">TBD</div>
+  </div>
+</div>
+</div>
+
+<div class="scores-updated">
+  First Four results: Howard 86–UMBC 83 · Texas 68–NC State 66 · Prairie View A&M 67–Lehigh 55 · Miami (OH) 89–SMU 79<br>
+  First Round completed: TCU 66–Ohio State 62 · Nebraska 76–Troy 47<br>
+  Data sourced from NCAA.com · Last updated: March 19, 2026 2:50 PM ET
+</div>
+
+<script>
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
